@@ -15,30 +15,35 @@ and open the template in the editor.
         <link href="css/bootstrap.css" rel="stylesheet">
         <link href="css/animate.css" rel="stylesheet">
         <link href="font-awesome-4.3.0/css/font-awesome.css" rel="stylesheet">
+        <style type="text/css">
+            .current-item {
+                color: #ff0000;
+                background: #bbb; 
+            }
+        </style>
     </head>
     <body>
         <div class="row">
             <div class="col-lg-10 text-center">
-                    <div class="col-lg-5">
-                        <div class="panel-body">
-                            <div class="form-group input-group">
-                                <input type="text" class="form-control" id="search-text">
-                                <span class="input-group-btn">
-                                    <button class="btn btn-default" type="button">
-                                        <i class="fa fa-search"></i>
-                                    </button>
-                                </span>
-                            </div>
+                <div class="col-lg-5">
+                    <div class="panel-body">
+                        <div class="form-group input-group">
+                            <input type="text" class="form-control" id="search-text">
+                            <span class="input-group-btn">
+                                <button class="btn btn-default" type="button">
+                                    <i class="fa fa-search"></i>
+                                </button>
+                            </span>
                         </div>
                     </div>
+                </div>
 
-                    <div class="row">
-                        <div class="col-lg-10 text-center">
-                            <div class="panel panel-default">
-                                hello
-                            </div>
-                        </div>
+                <div class="row">
+                    <div class="col-lg-10 text-left text-uppercase">
+                        <div class="col-lg-5 animated" id="items-cont">d</div>
+                        <div class="col-lg-5 animated" id="item-det-cont">f</div>
                     </div>
+                </div>
 
             </div>
         </div>
