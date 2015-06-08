@@ -7,6 +7,7 @@ $(document).ready(function () {
     $.fn.searchEngine = function (opt) {
         var this_ = this;
         var timer = false;
+        var nav_timer = false;
         var delay = 500;
         var xhr = false;
         var url = 'server.php';
@@ -36,11 +37,11 @@ $(document).ready(function () {
             if (q == '' || q == 'undefined') {
                 return;
             }
-            
+
             if (xhr) {
                 xhr.abort();
             }
-            $('#' + itemCont).html('').removeClass('fadeInDown');
+            $('#' + itemCont).html('');
             xhr = $.ajax({
                 url: url + '?q=' + q,
                 success: function (r) {
@@ -54,7 +55,7 @@ $(document).ready(function () {
                         }
                     });
 
-                    $('#' + itemCont).html('<ul>' + item_str + '</ul>').addClass('fadeInDown');
+                    $('#' + itemCont).html('<ul>' + item_str + '</ul>');
                 }
             });
         }
@@ -64,36 +65,57 @@ $(document).ready(function () {
             var nw = '';
             if (keyCode == 40) {
                 if (cr.is(':last-child')) {
-                    nw = cr.parent().children(':first-child')
+                    nw = cr.parent().children(':first-child');
                 } else {
-                    nw = cr.next()
+                    nw = cr.next();
                 }
             } else if (keyCode == 38) {
                 if (cr.is(':first-child')) {
-                    nw = cr.parent().children(':last-child')
+                    nw = cr.parent().children(':last-child');
                 } else {
                     nw = cr.prev();
                 }
             }
             cr.removeClass('current-item');
             nw.addClass('current-item');
-            loadDetails(nw.find('a').data('id'));
+            
+            if (nav_timer) {
+                clearTimeout(nav_timer);
+            }
+            
+            nav_timer = setTimeout(function(){
+                loadDetails(nw.find('a').data('id'));
+            }, delay);
         }
-        
+
         function loadDetails(id) {
             $('#' + itemDetCont).html('').removeClass('fadeInRight');
+            
+            if (typeof($('#' + itemDetCont).data('id' + id)) == 'object') {
+                setTimeout(function(){
+                    processData($('#' + itemDetCont).data('id' + id));
+                }, 100);
+                
+                return;
+            }
+            
             $.ajax({
-                url: url + '?mode=det&id='+id,
-                success: function(r) {
+                url: url + '?mode=det&id=' + id,
+                success: function (r) {
                     var json = $.parseJSON(r);
-                    var html = '';
-                    html += '<strong>ID:</strong>' + json[0].id;
-                    html += '<br/><strong>Name:</strong>' + json[0].name;
-                    html += '<br/><strong>Price:</strong>' + json[0].price;
-                    
-                    $('#' + itemDetCont).html(html).addClass('fadeInRight');
+                    $('#' + itemDetCont).data('id' + id, json);
+                    processData(json);
                 }
             });
+        }
+
+        function processData(json) {
+            var html = '';
+            html += '<strong>ID:</strong>' + json[0].id;
+            html += '<br/><strong>Name:</strong>' + json[0].name;
+            html += '<br/><strong>Price:</strong>' + json[0].price;
+
+            $('#' + itemDetCont).html(html).addClass('fadeInRight');
         }
 
         return this_;
