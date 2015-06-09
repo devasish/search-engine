@@ -24,7 +24,7 @@ if ($mode == 'det') {
     echo json_encode($data);
 } else {
     $q = $_GET['q'];
-    $sql = "SELECT * FROM items WHERE name LIKE '%$q%' LIMIT 10";
+    $sql = "SELECT * FROM items WHERE name LIKE '$q%' LIMIT 25";
     $result = mysqli_query($con, $sql);
 
     $data = array();

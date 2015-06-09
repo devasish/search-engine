@@ -25,9 +25,10 @@ and open the template in the editor.
     <body>
         <div class="row">
             <div class="col-lg-10 text-center">
-                <div class="col-lg-5">
-                    <div class="panel-body">
-                        <div class="form-group input-group">
+
+                <div class="panel-body">
+                    <div class="col-lg-5">
+                        <div class="input-group">
                             <input type="text" class="form-control" id="search-text" autofocus="" >
                             <span class="input-group-btn">
                                 <button class="btn btn-default" type="button">
@@ -36,15 +37,11 @@ and open the template in the editor.
                             </span>
                         </div>
                     </div>
-                </div>
-
-                <div class="row">
-                    <div class="col-lg-10 text-left text-uppercase">
-                        <div class="col-lg-5 animated" id="items-cont"></div>
+                    <div id="search-res-cont" class="col-lg-10 text-left" style="margin-left: 14px;border:1px solid silver;box-shadow:2px 4px 6px #bbb; display: none;">
+                        <div class="col-lg-5 animated" id="items-cont" style="max-height: 250px; overflow-y: auto;"></div>
                         <div class="col-lg-5 animated" id="item-det-cont"></div>
                     </div>
                 </div>
-
             </div>
         </div>
     </body>
